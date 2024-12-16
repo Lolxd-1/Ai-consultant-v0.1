@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-black font-sans text-base;
+    overscroll-behavior: none;
+    will-change: transform;
+  }
+
+  /* Hide the header bar */
+  header {
+    display: none !important;
+  }
+}
+
+/* Optimize animations with hardware acceleration */
+.hero-gradient {
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes strike {
+  0% { 
+    width: 0;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  100% { 
+    width: 100%;
+    opacity: 0.5;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-strike {
+  position: relative;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.animate-strike::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: white;
+  animation: strike 0.3s ease-out forwards;
+  transform-origin: left;
+  will-change: transform, width, opacity;
+}
+
+@keyframes checkbox {
+  0% { 
+    opacity: 0;
+    transform: scale(0.5) rotate(-45deg) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(-45deg) translate3d(0, 0, 0);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1) rotate(-45deg) translate3d(0, 0, 0);
+  }
+}
+
+.animate-checkbox {
+  animation: checkbox 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Optimize scrolling performance */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .scrollbar-thumb-white\/10 {
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  }
+  
+  .scrollbar-thumb-white\/20 {
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+  
+  .scrollbar-track-transparent {
+    scrollbar-track-color: transparent;
+  }
+
+  /* Hardware acceleration classes */
+  .gpu {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+  }
+
+  .gpu-child > * {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+  }
+}
+
+/* Optimize video performance */
+video {
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
